@@ -1,0 +1,423 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="minhaGeladeiraModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Grupo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Item_Geladeira">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Grupo" Type="int" Nullable="false" />
+          <Property Name="Id_Produto" Type="int" Nullable="false" />
+          <Property Name="Quantidade" Type="int" Nullable="false" />
+          <Property Name="Validade" Type="date" />
+        </EntityType>
+        <EntityType Name="Item_Lista_Compra">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Grupo" Type="int" Nullable="false" />
+          <Property Name="Id_Produto" Type="int" Nullable="false" />
+          <Property Name="Quantidade" Type="int" Nullable="false" />
+          <Property Name="Urgencia" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Membro_Grupo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Usuario" Type="int" Nullable="false" />
+          <Property Name="Id_Grupo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Produto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Preco" Type="money" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RG" Type="nchar" MaxLength="9" Nullable="false" />
+          <Property Name="Telefone" Type="nchar" MaxLength="12" />
+        </EntityType>
+        <Association Name="FK_Item_Geladeira_Grupo">
+          <End Role="Grupo" Type="Self.Grupo" Multiplicity="1" />
+          <End Role="Item_Geladeira" Type="Self.Item_Geladeira" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item_Geladeira">
+              <PropertyRef Name="Id_Grupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_Geladeira_Produto">
+          <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+          <End Role="Item_Geladeira" Type="Self.Item_Geladeira" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item_Geladeira">
+              <PropertyRef Name="Id_Produto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_Lista_Compra_Grupo">
+          <End Role="Grupo" Type="Self.Grupo" Multiplicity="1" />
+          <End Role="Item_Lista_Compra" Type="Self.Item_Lista_Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item_Lista_Compra">
+              <PropertyRef Name="Id_Grupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_Lista_Compra_Produto">
+          <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+          <End Role="Item_Lista_Compra" Type="Self.Item_Lista_Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item_Lista_Compra">
+              <PropertyRef Name="Id_Produto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Membro_Grupo_Grupo">
+          <End Role="Grupo" Type="Self.Grupo" Multiplicity="1" />
+          <End Role="Membro_Grupo" Type="Self.Membro_Grupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Membro_Grupo">
+              <PropertyRef Name="Id_Grupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Membro_Grupo_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Membro_Grupo" Type="Self.Membro_Grupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Membro_Grupo">
+              <PropertyRef Name="Id_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="minhaGeladeiraModelStoreContainer">
+          <EntitySet Name="Grupo" EntityType="Self.Grupo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item_Geladeira" EntityType="Self.Item_Geladeira" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item_Lista_Compra" EntityType="Self.Item_Lista_Compra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Membro_Grupo" EntityType="Self.Membro_Grupo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Produto" EntityType="Self.Produto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Item_Geladeira_Grupo" Association="Self.FK_Item_Geladeira_Grupo">
+            <End Role="Grupo" EntitySet="Grupo" />
+            <End Role="Item_Geladeira" EntitySet="Item_Geladeira" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_Geladeira_Produto" Association="Self.FK_Item_Geladeira_Produto">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="Item_Geladeira" EntitySet="Item_Geladeira" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_Lista_Compra_Grupo" Association="Self.FK_Item_Lista_Compra_Grupo">
+            <End Role="Grupo" EntitySet="Grupo" />
+            <End Role="Item_Lista_Compra" EntitySet="Item_Lista_Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_Lista_Compra_Produto" Association="Self.FK_Item_Lista_Compra_Produto">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="Item_Lista_Compra" EntitySet="Item_Lista_Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Membro_Grupo_Grupo" Association="Self.FK_Membro_Grupo_Grupo">
+            <End Role="Grupo" EntitySet="Grupo" />
+            <End Role="Membro_Grupo" EntitySet="Membro_Grupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Membro_Grupo_Usuario" Association="Self.FK_Membro_Grupo_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Membro_Grupo" EntitySet="Membro_Grupo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="minhaGeladeiraModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="minhaGeladeiraEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Grupoes" EntityType="minhaGeladeiraModel.Grupo" />
+          <EntitySet Name="Item_Geladeira" EntityType="minhaGeladeiraModel.Item_Geladeira" />
+          <EntitySet Name="Item_Lista_Compra" EntityType="minhaGeladeiraModel.Item_Lista_Compra" />
+          <EntitySet Name="Membro_Grupo" EntityType="minhaGeladeiraModel.Membro_Grupo" />
+          <EntitySet Name="Produtoes" EntityType="minhaGeladeiraModel.Produto" />
+          <EntitySet Name="Usuarios" EntityType="minhaGeladeiraModel.Usuario" />
+          <AssociationSet Name="FK_Item_Geladeira_Grupo" Association="minhaGeladeiraModel.FK_Item_Geladeira_Grupo">
+            <End Role="Grupo" EntitySet="Grupoes" />
+            <End Role="Item_Geladeira" EntitySet="Item_Geladeira" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_Lista_Compra_Grupo" Association="minhaGeladeiraModel.FK_Item_Lista_Compra_Grupo">
+            <End Role="Grupo" EntitySet="Grupoes" />
+            <End Role="Item_Lista_Compra" EntitySet="Item_Lista_Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Membro_Grupo_Grupo" Association="minhaGeladeiraModel.FK_Membro_Grupo_Grupo">
+            <End Role="Grupo" EntitySet="Grupoes" />
+            <End Role="Membro_Grupo" EntitySet="Membro_Grupo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_Geladeira_Produto" Association="minhaGeladeiraModel.FK_Item_Geladeira_Produto">
+            <End Role="Produto" EntitySet="Produtoes" />
+            <End Role="Item_Geladeira" EntitySet="Item_Geladeira" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_Lista_Compra_Produto" Association="minhaGeladeiraModel.FK_Item_Lista_Compra_Produto">
+            <End Role="Produto" EntitySet="Produtoes" />
+            <End Role="Item_Lista_Compra" EntitySet="Item_Lista_Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Membro_Grupo_Usuario" Association="minhaGeladeiraModel.FK_Membro_Grupo_Usuario">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Membro_Grupo" EntitySet="Membro_Grupo" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Grupo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Item_Geladeira" Relationship="minhaGeladeiraModel.FK_Item_Geladeira_Grupo" FromRole="Grupo" ToRole="Item_Geladeira" />
+          <NavigationProperty Name="Item_Lista_Compra" Relationship="minhaGeladeiraModel.FK_Item_Lista_Compra_Grupo" FromRole="Grupo" ToRole="Item_Lista_Compra" />
+          <NavigationProperty Name="Membro_Grupo" Relationship="minhaGeladeiraModel.FK_Membro_Grupo_Grupo" FromRole="Grupo" ToRole="Membro_Grupo" />
+        </EntityType>
+        <EntityType Name="Item_Geladeira">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Grupo" Type="Int32" Nullable="false" />
+          <Property Name="Id_Produto" Type="Int32" Nullable="false" />
+          <Property Name="Quantidade" Type="Int32" Nullable="false" />
+          <Property Name="Validade" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Grupo" Relationship="minhaGeladeiraModel.FK_Item_Geladeira_Grupo" FromRole="Item_Geladeira" ToRole="Grupo" />
+          <NavigationProperty Name="Produto" Relationship="minhaGeladeiraModel.FK_Item_Geladeira_Produto" FromRole="Item_Geladeira" ToRole="Produto" />
+        </EntityType>
+        <EntityType Name="Item_Lista_Compra">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Grupo" Type="Int32" Nullable="false" />
+          <Property Name="Id_Produto" Type="Int32" Nullable="false" />
+          <Property Name="Quantidade" Type="Int32" Nullable="false" />
+          <Property Name="Urgencia" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Grupo" Relationship="minhaGeladeiraModel.FK_Item_Lista_Compra_Grupo" FromRole="Item_Lista_Compra" ToRole="Grupo" />
+          <NavigationProperty Name="Produto" Relationship="minhaGeladeiraModel.FK_Item_Lista_Compra_Produto" FromRole="Item_Lista_Compra" ToRole="Produto" />
+        </EntityType>
+        <EntityType Name="Membro_Grupo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Usuario" Type="Int32" Nullable="false" />
+          <Property Name="Id_Grupo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Grupo" Relationship="minhaGeladeiraModel.FK_Membro_Grupo_Grupo" FromRole="Membro_Grupo" ToRole="Grupo" />
+          <NavigationProperty Name="Usuario" Relationship="minhaGeladeiraModel.FK_Membro_Grupo_Usuario" FromRole="Membro_Grupo" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Produto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Preco" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Item_Geladeira" Relationship="minhaGeladeiraModel.FK_Item_Geladeira_Produto" FromRole="Produto" ToRole="Item_Geladeira" />
+          <NavigationProperty Name="Item_Lista_Compra" Relationship="minhaGeladeiraModel.FK_Item_Lista_Compra_Produto" FromRole="Produto" ToRole="Item_Lista_Compra" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RG" Type="String" Nullable="false" MaxLength="9" FixedLength="true" Unicode="true" />
+          <Property Name="Telefone" Type="String" MaxLength="12" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Membro_Grupo" Relationship="minhaGeladeiraModel.FK_Membro_Grupo_Usuario" FromRole="Usuario" ToRole="Membro_Grupo" />
+        </EntityType>
+        <Association Name="FK_Item_Geladeira_Grupo">
+          <End Type="minhaGeladeiraModel.Grupo" Role="Grupo" Multiplicity="1" />
+          <End Type="minhaGeladeiraModel.Item_Geladeira" Role="Item_Geladeira" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item_Geladeira">
+              <PropertyRef Name="Id_Grupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_Lista_Compra_Grupo">
+          <End Type="minhaGeladeiraModel.Grupo" Role="Grupo" Multiplicity="1" />
+          <End Type="minhaGeladeiraModel.Item_Lista_Compra" Role="Item_Lista_Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item_Lista_Compra">
+              <PropertyRef Name="Id_Grupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Membro_Grupo_Grupo">
+          <End Type="minhaGeladeiraModel.Grupo" Role="Grupo" Multiplicity="1" />
+          <End Type="minhaGeladeiraModel.Membro_Grupo" Role="Membro_Grupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Membro_Grupo">
+              <PropertyRef Name="Id_Grupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_Geladeira_Produto">
+          <End Type="minhaGeladeiraModel.Produto" Role="Produto" Multiplicity="1" />
+          <End Type="minhaGeladeiraModel.Item_Geladeira" Role="Item_Geladeira" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item_Geladeira">
+              <PropertyRef Name="Id_Produto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_Lista_Compra_Produto">
+          <End Type="minhaGeladeiraModel.Produto" Role="Produto" Multiplicity="1" />
+          <End Type="minhaGeladeiraModel.Item_Lista_Compra" Role="Item_Lista_Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item_Lista_Compra">
+              <PropertyRef Name="Id_Produto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Membro_Grupo_Usuario">
+          <End Type="minhaGeladeiraModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="minhaGeladeiraModel.Membro_Grupo" Role="Membro_Grupo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Membro_Grupo">
+              <PropertyRef Name="Id_Usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="minhaGeladeiraModelStoreContainer" CdmEntityContainer="minhaGeladeiraEntities">
+          <EntitySetMapping Name="Grupoes">
+            <EntityTypeMapping TypeName="minhaGeladeiraModel.Grupo">
+              <MappingFragment StoreEntitySet="Grupo">
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Item_Geladeira">
+            <EntityTypeMapping TypeName="minhaGeladeiraModel.Item_Geladeira">
+              <MappingFragment StoreEntitySet="Item_Geladeira">
+                <ScalarProperty Name="Validade" ColumnName="Validade" />
+                <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+                <ScalarProperty Name="Id_Produto" ColumnName="Id_Produto" />
+                <ScalarProperty Name="Id_Grupo" ColumnName="Id_Grupo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Item_Lista_Compra">
+            <EntityTypeMapping TypeName="minhaGeladeiraModel.Item_Lista_Compra">
+              <MappingFragment StoreEntitySet="Item_Lista_Compra">
+                <ScalarProperty Name="Urgencia" ColumnName="Urgencia" />
+                <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+                <ScalarProperty Name="Id_Produto" ColumnName="Id_Produto" />
+                <ScalarProperty Name="Id_Grupo" ColumnName="Id_Grupo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Membro_Grupo">
+            <EntityTypeMapping TypeName="minhaGeladeiraModel.Membro_Grupo">
+              <MappingFragment StoreEntitySet="Membro_Grupo">
+                <ScalarProperty Name="Id_Grupo" ColumnName="Id_Grupo" />
+                <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produtoes">
+            <EntityTypeMapping TypeName="minhaGeladeiraModel.Produto">
+              <MappingFragment StoreEntitySet="Produto">
+                <ScalarProperty Name="Preco" ColumnName="Preco" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="minhaGeladeiraModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Telefone" ColumnName="Telefone" />
+                <ScalarProperty Name="RG" ColumnName="RG" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
