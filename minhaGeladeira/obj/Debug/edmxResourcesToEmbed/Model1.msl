@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="minhaGeladeiraModelStoreContainer" CdmEntityContainer="minhaGeladeiraEntities">
+    <EntitySetMapping Name="Grupoes">
+      <EntityTypeMapping TypeName="minhaGeladeiraModel.Grupo">
+        <MappingFragment StoreEntitySet="Grupo">
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Item_Geladeira">
+      <EntityTypeMapping TypeName="minhaGeladeiraModel.Item_Geladeira">
+        <MappingFragment StoreEntitySet="Item_Geladeira">
+          <ScalarProperty Name="Validade" ColumnName="Validade" />
+          <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+          <ScalarProperty Name="Id_Produto" ColumnName="Id_Produto" />
+          <ScalarProperty Name="Id_Grupo" ColumnName="Id_Grupo" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Item_Lista_Compra">
+      <EntityTypeMapping TypeName="minhaGeladeiraModel.Item_Lista_Compra">
+        <MappingFragment StoreEntitySet="Item_Lista_Compra">
+          <ScalarProperty Name="Urgencia" ColumnName="Urgencia" />
+          <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+          <ScalarProperty Name="Id_Produto" ColumnName="Id_Produto" />
+          <ScalarProperty Name="Id_Grupo" ColumnName="Id_Grupo" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Membro_Grupo">
+      <EntityTypeMapping TypeName="minhaGeladeiraModel.Membro_Grupo">
+        <MappingFragment StoreEntitySet="Membro_Grupo">
+          <ScalarProperty Name="Id_Grupo" ColumnName="Id_Grupo" />
+          <ScalarProperty Name="Id_Usuario" ColumnName="Id_Usuario" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Produtoes">
+      <EntityTypeMapping TypeName="minhaGeladeiraModel.Produto">
+        <MappingFragment StoreEntitySet="Produto">
+          <ScalarProperty Name="Preco" ColumnName="Preco" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="minhaGeladeiraModel.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="Telefone" ColumnName="Telefone" />
+          <ScalarProperty Name="RG" ColumnName="RG" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

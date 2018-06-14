@@ -25,11 +25,11 @@ namespace minhaGeladeira
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Grupo> Grupoes { get; set; }
-        public virtual DbSet<Item_Geladeira> Item_Geladeira { get; set; }
-        public virtual DbSet<Item_Lista_Compra> Item_Lista_Compra { get; set; }
-        public virtual DbSet<Membro_Grupo> Membro_Grupo { get; set; }
-        public virtual DbSet<Produto> Produtoes { get; set; }
+        public virtual DbSet<Grupo> Grupos { get; set; }
+        public virtual DbSet<Item_Geladeira> ItensGeladeira { get; set; }
+        public virtual DbSet<Item_Lista_Compra> ItensListaCompra { get; set; }
+        public virtual DbSet<Membro_Grupo> MembrosGrupo { get; set; }
+        public virtual DbSet<Produto> Produtos { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
     }
 }

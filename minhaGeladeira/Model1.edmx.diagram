@@ -5,12 +5,12 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="496a3afb837c4df38353e1451f3db23f" Name="Diagram1">
-        <EntityTypeShape EntityType="minhaGeladeiraModel.Grupo" Width="1.5" PointX="1.75" PointY="5.25" />
-        <EntityTypeShape EntityType="minhaGeladeiraModel.Item_Geladeira" Width="1.5" PointX="6.75" PointY="4.625" />
-        <EntityTypeShape EntityType="minhaGeladeiraModel.Item_Lista_Compra" Width="1.5" PointX="1.25" PointY="1.875" />
-        <EntityTypeShape EntityType="minhaGeladeiraModel.Membro_Grupo" Width="1.5" PointX="1.5" PointY="8.375" />
-        <EntityTypeShape EntityType="minhaGeladeiraModel.Produto" Width="1.5" PointX="7" PointY="1.625" />
-        <EntityTypeShape EntityType="minhaGeladeiraModel.Usuario" Width="1.5" PointX="6" PointY="8.375" />
+        <EntityTypeShape EntityType="minhaGeladeiraModel.Grupo" Width="1.5" PointX="3" PointY="4.875" />
+        <EntityTypeShape EntityType="minhaGeladeiraModel.Item_Geladeira" Width="1.5" PointX="6.375" PointY="3.375" />
+        <EntityTypeShape EntityType="minhaGeladeiraModel.Item_Lista_Compra" Width="1.5" PointX="6.375" PointY="6.75" />
+        <EntityTypeShape EntityType="minhaGeladeiraModel.Membro_Grupo" Width="1.5" PointX="6.375" PointY="0.625" />
+        <EntityTypeShape EntityType="minhaGeladeiraModel.Produto" Width="1.5" PointX="9.125" PointY="5" />
+        <EntityTypeShape EntityType="minhaGeladeiraModel.Usuario" Width="1.5" PointX="4.125" PointY="0.625" />
         <AssociationConnector Association="minhaGeladeiraModel.FK_Item_Geladeira_Grupo" />
         <AssociationConnector Association="minhaGeladeiraModel.FK_Item_Lista_Compra_Grupo" />
         <AssociationConnector Association="minhaGeladeiraModel.FK_Membro_Grupo_Grupo" />

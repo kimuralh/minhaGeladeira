@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="minhaGeladeiraModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Grupo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Item_Geladeira">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_Grupo" Type="int" Nullable="false" />
+    <Property Name="Id_Produto" Type="int" Nullable="false" />
+    <Property Name="Quantidade" Type="int" Nullable="false" />
+    <Property Name="Validade" Type="date" />
+  </EntityType>
+  <EntityType Name="Item_Lista_Compra">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_Grupo" Type="int" Nullable="false" />
+    <Property Name="Id_Produto" Type="int" Nullable="false" />
+    <Property Name="Quantidade" Type="int" Nullable="false" />
+    <Property Name="Urgencia" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Membro_Grupo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_Usuario" Type="int" Nullable="false" />
+    <Property Name="Id_Grupo" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Produto">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Preco" Type="money" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="RG" Type="nchar" MaxLength="9" Nullable="false" />
+    <Property Name="Telefone" Type="nchar" MaxLength="12" />
+  </EntityType>
+  <Association Name="FK_Item_Geladeira_Grupo">
+    <End Role="Grupo" Type="Self.Grupo" Multiplicity="1" />
+    <End Role="Item_Geladeira" Type="Self.Item_Geladeira" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grupo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Item_Geladeira">
+        <PropertyRef Name="Id_Grupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Item_Geladeira_Produto">
+    <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+    <End Role="Item_Geladeira" Type="Self.Item_Geladeira" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Item_Geladeira">
+        <PropertyRef Name="Id_Produto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Item_Lista_Compra_Grupo">
+    <End Role="Grupo" Type="Self.Grupo" Multiplicity="1" />
+    <End Role="Item_Lista_Compra" Type="Self.Item_Lista_Compra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grupo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Item_Lista_Compra">
+        <PropertyRef Name="Id_Grupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Item_Lista_Compra_Produto">
+    <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+    <End Role="Item_Lista_Compra" Type="Self.Item_Lista_Compra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Item_Lista_Compra">
+        <PropertyRef Name="Id_Produto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Membro_Grupo_Grupo">
+    <End Role="Grupo" Type="Self.Grupo" Multiplicity="1" />
+    <End Role="Membro_Grupo" Type="Self.Membro_Grupo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grupo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Membro_Grupo">
+        <PropertyRef Name="Id_Grupo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Membro_Grupo_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="Membro_Grupo" Type="Self.Membro_Grupo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Membro_Grupo">
+        <PropertyRef Name="Id_Usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="minhaGeladeiraModelStoreContainer">
+    <EntitySet Name="Grupo" EntityType="Self.Grupo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Item_Geladeira" EntityType="Self.Item_Geladeira" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Item_Lista_Compra" EntityType="Self.Item_Lista_Compra" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Membro_Grupo" EntityType="Self.Membro_Grupo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Produto" EntityType="Self.Produto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Item_Geladeira_Grupo" Association="Self.FK_Item_Geladeira_Grupo">
+      <End Role="Grupo" EntitySet="Grupo" />
+      <End Role="Item_Geladeira" EntitySet="Item_Geladeira" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Item_Geladeira_Produto" Association="Self.FK_Item_Geladeira_Produto">
+      <End Role="Produto" EntitySet="Produto" />
+      <End Role="Item_Geladeira" EntitySet="Item_Geladeira" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Item_Lista_Compra_Grupo" Association="Self.FK_Item_Lista_Compra_Grupo">
+      <End Role="Grupo" EntitySet="Grupo" />
+      <End Role="Item_Lista_Compra" EntitySet="Item_Lista_Compra" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Item_Lista_Compra_Produto" Association="Self.FK_Item_Lista_Compra_Produto">
+      <End Role="Produto" EntitySet="Produto" />
+      <End Role="Item_Lista_Compra" EntitySet="Item_Lista_Compra" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Membro_Grupo_Grupo" Association="Self.FK_Membro_Grupo_Grupo">
+      <End Role="Grupo" EntitySet="Grupo" />
+      <End Role="Membro_Grupo" EntitySet="Membro_Grupo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Membro_Grupo_Usuario" Association="Self.FK_Membro_Grupo_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Membro_Grupo" EntitySet="Membro_Grupo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

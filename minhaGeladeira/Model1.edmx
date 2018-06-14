@@ -166,34 +166,34 @@
     <edmx:ConceptualModels>
       <Schema Namespace="minhaGeladeiraModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="minhaGeladeiraEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Grupoes" EntityType="minhaGeladeiraModel.Grupo" />
+          <EntitySet Name="Grupo" EntityType="minhaGeladeiraModel.Grupo" />
           <EntitySet Name="Item_Geladeira" EntityType="minhaGeladeiraModel.Item_Geladeira" />
           <EntitySet Name="Item_Lista_Compra" EntityType="minhaGeladeiraModel.Item_Lista_Compra" />
           <EntitySet Name="Membro_Grupo" EntityType="minhaGeladeiraModel.Membro_Grupo" />
-          <EntitySet Name="Produtoes" EntityType="minhaGeladeiraModel.Produto" />
-          <EntitySet Name="Usuarios" EntityType="minhaGeladeiraModel.Usuario" />
+          <EntitySet Name="Produto" EntityType="minhaGeladeiraModel.Produto" />
+          <EntitySet Name="Usuario" EntityType="minhaGeladeiraModel.Usuario" />
           <AssociationSet Name="FK_Item_Geladeira_Grupo" Association="minhaGeladeiraModel.FK_Item_Geladeira_Grupo">
-            <End Role="Grupo" EntitySet="Grupoes" />
+            <End Role="Grupo" EntitySet="Grupo" />
             <End Role="Item_Geladeira" EntitySet="Item_Geladeira" />
           </AssociationSet>
           <AssociationSet Name="FK_Item_Lista_Compra_Grupo" Association="minhaGeladeiraModel.FK_Item_Lista_Compra_Grupo">
-            <End Role="Grupo" EntitySet="Grupoes" />
+            <End Role="Grupo" EntitySet="Grupo" />
             <End Role="Item_Lista_Compra" EntitySet="Item_Lista_Compra" />
           </AssociationSet>
           <AssociationSet Name="FK_Membro_Grupo_Grupo" Association="minhaGeladeiraModel.FK_Membro_Grupo_Grupo">
-            <End Role="Grupo" EntitySet="Grupoes" />
+            <End Role="Grupo" EntitySet="Grupo" />
             <End Role="Membro_Grupo" EntitySet="Membro_Grupo" />
           </AssociationSet>
           <AssociationSet Name="FK_Item_Geladeira_Produto" Association="minhaGeladeiraModel.FK_Item_Geladeira_Produto">
-            <End Role="Produto" EntitySet="Produtoes" />
+            <End Role="Produto" EntitySet="Produto" />
             <End Role="Item_Geladeira" EntitySet="Item_Geladeira" />
           </AssociationSet>
           <AssociationSet Name="FK_Item_Lista_Compra_Produto" Association="minhaGeladeiraModel.FK_Item_Lista_Compra_Produto">
-            <End Role="Produto" EntitySet="Produtoes" />
+            <End Role="Produto" EntitySet="Produto" />
             <End Role="Item_Lista_Compra" EntitySet="Item_Lista_Compra" />
           </AssociationSet>
           <AssociationSet Name="FK_Membro_Grupo_Usuario" Association="minhaGeladeiraModel.FK_Membro_Grupo_Usuario">
-            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Membro_Grupo" EntitySet="Membro_Grupo" />
           </AssociationSet>
         </EntityContainer>
@@ -339,7 +339,7 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="minhaGeladeiraModelStoreContainer" CdmEntityContainer="minhaGeladeiraEntities">
-          <EntitySetMapping Name="Grupoes">
+          <EntitySetMapping Name="Grupo">
             <EntityTypeMapping TypeName="minhaGeladeiraModel.Grupo">
               <MappingFragment StoreEntitySet="Grupo">
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
@@ -378,7 +378,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Produtoes">
+          <EntitySetMapping Name="Produto">
             <EntityTypeMapping TypeName="minhaGeladeiraModel.Produto">
               <MappingFragment StoreEntitySet="Produto">
                 <ScalarProperty Name="Preco" ColumnName="Preco" />
@@ -387,7 +387,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Usuarios">
+          <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="minhaGeladeiraModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
                 <ScalarProperty Name="Telefone" ColumnName="Telefone" />
@@ -411,7 +411,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
