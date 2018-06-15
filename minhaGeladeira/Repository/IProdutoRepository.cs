@@ -8,5 +8,6 @@ namespace minhaGeladeira.Repository
 {
     public interface IProdutoRepository : IRepository<Produto>
     {
+        IEnumerable<Produto> GetAllProdutos();
     }
 }

@@ -14,8 +14,8 @@ namespace minhaGeladeira.Repository
         {
             _context = context;
             Grupos = new GrupoRepository(_context);
-            ItensGeladeira = new ItemGeladeiraRepository(_context);
-            ItensListaCompra = new ItensListaCompraRepository(_context);
+            //ItensGeladeira = new ItemGeladeiraRepository(_context);
+            //ItensListaCompra = new ItemListaCompraRepository(_context);
             MembrosGrupo = new MembroGrupoRepository(_context);
             Produtos = new ProdutoRepository(_context);
             Usuarios = new UsuarioRepository(_context);
@@ -24,9 +24,9 @@ namespace minhaGeladeira.Repository
 
         public IGrupoRepository Grupos { get; private set; }
 
-        public IItemGeladeiraRepository ItensGeladeira { get; private set; }
+        //public IItemGeladeiraRepository ItensGeladeira { get; private set; }
 
-        public IItemListaCompraRepository ItensListaCompra { get; private set; }
+        //public IItemListaCompraRepository ItensListaCompra { get; private set; }
 
         public IMembroGrupoRepository MembrosGrupo { get; private set; }
 

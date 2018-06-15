@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="minhaGeladeiraModelStoreContainer" CdmEntityContainer="minhaGeladeiraEntities">
-    <EntitySetMapping Name="Grupoes">
+    <EntitySetMapping Name="Grupo">
       <EntityTypeMapping TypeName="minhaGeladeiraModel.Grupo">
         <MappingFragment StoreEntitySet="Grupo">
           <ScalarProperty Name="Nome" ColumnName="Nome" />
@@ -40,7 +40,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Produtoes">
+    <EntitySetMapping Name="Produto">
       <EntityTypeMapping TypeName="minhaGeladeiraModel.Produto">
         <MappingFragment StoreEntitySet="Produto">
           <ScalarProperty Name="Preco" ColumnName="Preco" />
@@ -49,7 +49,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Usuarios">
+    <EntitySetMapping Name="Usuario">
       <EntityTypeMapping TypeName="minhaGeladeiraModel.Usuario">
         <MappingFragment StoreEntitySet="Usuario">
           <ScalarProperty Name="Telefone" ColumnName="Telefone" />
