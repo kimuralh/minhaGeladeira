@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace minhaGeladeira.Repository
 {
-    public interface IUsuarioRepository : IRepository<Usuario>
+    public interface IGrupoRepository : IRepository<Grupo>
     {
-        //IEnumerable<Usuario> GetTudo();
-        Usuario GetUm();
-        IEnumerable<UsuarioNZoado> GetTudo();
+        IEnumerable<GrupoSimples> GetTudo();
+        IEnumerable<GrupoSimples> GetGruposId(int id);
+       
     }
 }

@@ -13,22 +13,36 @@ using minhaGeladeira.Repository;
 
 namespace minhaGeladeira.Controllers
 {
-    public class GrupoController : ApiController
+    [RoutePrefix ("api/grupos")]
+    public class GruposController : ApiController
     {
         private minhaGeladeiraEntities db = new minhaGeladeiraEntities();
 
         // GET: api/Grupo
-        public IQueryable<Grupo> GetGrupo(int id)
-        {
-            UnityOfWork unityofWork = new UnityOfWork(new minhaGeladeiraEntities());
-            unityofWork.Grupos
-
-        }
-
         //public IQueryable<Grupo> GetGrupo(int id)
         //{
-        //    //return db.Grupo;
+        //    UnityOfWork unityofWork = new UnityOfWork(new minhaGeladeiraEntities());
+        //    unityofWork.MembrosGrupo.Get
+
         //}
+
+        public HttpResponseMessage GetGrupos()
+        {
+            UnityOfWork unitOfWork = new UnityOfWork(new minhaGeladeiraEntities());
+
+            var x = unitOfWork.Grupos.GetTudo();
+            return Request.CreateResponse(HttpStatusCode.OK, x);
+        }
+
+        // GET: api/grupos/id/usuarios
+        [ResponseType(typeof(Usuario))]
+        [Route("{id:int}/usuarios")]
+        public IHttpActionResult GetUsuarios(int id)
+        {
+            UnityOfWork unityOfWork = new UnityOfWork(new minhaGeladeiraEntities());
+            var usuarios = unityOfWork.Usuarios.GetUsuariosId(id);
+            return Ok(usuarios);
+        }
 
         // GET: api/Grupo/5
         [ResponseType(typeof(Grupo))]
@@ -87,7 +101,7 @@ namespace minhaGeladeira.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Grupo.Add(grupo);
+            db.Grupos.Add(grupo);
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = grupo.Id }, grupo);
@@ -97,13 +111,13 @@ namespace minhaGeladeira.Controllers
         [ResponseType(typeof(Grupo))]
         public IHttpActionResult DeleteGrupo(int id)
         {
-            Grupo grupo = db.Grupo.Find(id);
+            Grupo grupo = db.Grupos.Find(id);
             if (grupo == null)
             {
                 return NotFound();
             }
 
-            db.Grupo.Remove(grupo);
+            db.Grupos.Remove(grupo);
             db.SaveChanges();
 
             return Ok(grupo);
@@ -120,7 +134,7 @@ namespace minhaGeladeira.Controllers
 
         private bool GrupoExists(int id)
         {
-            return db.Grupo.Count(e => e.Id == id) > 0;
+            return db.Grupos.Count(e => e.Id == id) > 0;
         }
     }
 }

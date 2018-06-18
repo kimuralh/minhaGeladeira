@@ -6,7 +6,6 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using minhaGeladeira;
@@ -14,38 +13,48 @@ using minhaGeladeira.Repository;
 
 namespace minhaGeladeira.Controllers
 {
+    [RoutePrefix("api/usuarios")]
     public class UsuariosController : ApiController
     {
         private minhaGeladeiraEntities db = new minhaGeladeiraEntities();
 
+        
         // GET: api/Usuarios
+        [Route("")]
         public HttpResponseMessage GetUsuario()
         {
             // Dica: using e unit of work não parecem funcionar juntos
-                UnityOfWork unitOfWork = new UnityOfWork(new minhaGeladeiraEntities());
+            UnityOfWork unitOfWork = new UnityOfWork(new minhaGeladeiraEntities());
 
-            var x = unitOfWork.Usuarios.GetTudo();
-                return Request.CreateResponse(HttpStatusCode.OK, x);
-                
+            var usuarios = unitOfWork.Usuarios.GetTudo();
+            return Request.CreateResponse(HttpStatusCode.OK, usuarios);
+
             // quando eu tento exibir um usuario que está associado à um grupo no MembroGrupo, dá ruim
         }
 
-        // GET: api/Usuarios/5
+        // GET: api/usuarios/id
         [ResponseType(typeof(Usuario))]
-        public async Task<IHttpActionResult> GetUsuario(int id)
+        [Route("{id:int}")]
+        public IHttpActionResult GetUsuario(int id)
         {
-            Usuario usuario = await db.Usuarios.FindAsync(id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-
+            UnityOfWork unityOfWork = new UnityOfWork(new minhaGeladeiraEntities());
+            var usuario = unityOfWork.Usuarios.GetUm(id);
             return Ok(usuario);
+        }
+
+        // GET: api/usuarios/id/grupos
+        [ResponseType(typeof(Grupo))]
+        [Route("{id:int}/grupos")]
+        public IHttpActionResult GetGrupo(int id)
+        {
+            UnityOfWork unityOfWork = new UnityOfWork(new minhaGeladeiraEntities());
+            var grupos = unityOfWork.Grupos.GetGruposId(id);
+            return Ok(grupos);
         }
 
         // PUT: api/Usuarios/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutUsuario(int id, Usuario usuario)
+        public IHttpActionResult PutUsuario(int id, Usuario usuario)
         {
             if (!ModelState.IsValid)
             {
@@ -61,7 +70,7 @@ namespace minhaGeladeira.Controllers
 
             try
             {
-                await db.SaveChangesAsync();
+                db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -80,7 +89,7 @@ namespace minhaGeladeira.Controllers
 
         // POST: api/Usuarios
         [ResponseType(typeof(Usuario))]
-        public async Task<IHttpActionResult> PostUsuario(Usuario usuario)
+        public IHttpActionResult PostUsuario(Usuario usuario)
         {
             if (!ModelState.IsValid)
             {
@@ -88,23 +97,23 @@ namespace minhaGeladeira.Controllers
             }
 
             db.Usuarios.Add(usuario);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = usuario.Id }, usuario);
         }
 
         // DELETE: api/Usuarios/5
         [ResponseType(typeof(Usuario))]
-        public async Task<IHttpActionResult> DeleteUsuario(int id)
+        public IHttpActionResult DeleteUsuario(int id)
         {
-            Usuario usuario = await db.Usuarios.FindAsync(id);
+            Usuario usuario = db.Usuarios.Find(id);
             if (usuario == null)
             {
                 return NotFound();
             }
 
             db.Usuarios.Remove(usuario);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
 
             return Ok(usuario);
         }
