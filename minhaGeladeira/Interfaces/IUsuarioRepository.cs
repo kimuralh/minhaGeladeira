@@ -10,8 +10,8 @@ namespace minhaGeladeira.Repository
     public interface IUsuarioRepository : IRepository<Usuario>
     {
         //IEnumerable<Usuario> GetTudo();
-        UsuarioNZoado GetUm(int id);
-        IEnumerable<UsuarioNZoado> GetTudo();
-        IEnumerable<UsuarioNZoado> GetUsuariosId(int id);
+        UsuarioSimples GetUm(int id);
+        IEnumerable<UsuarioSimples> GetTudo();
+        IEnumerable<UsuarioSimples> GetUsuariosId(int id);
     }
 }

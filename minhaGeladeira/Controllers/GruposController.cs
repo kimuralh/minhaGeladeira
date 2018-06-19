@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using minhaGeladeira;
+using minhaGeladeira.Models;
 using minhaGeladeira.Repository;
 
 namespace minhaGeladeira.Controllers
@@ -26,6 +27,8 @@ namespace minhaGeladeira.Controllers
 
         //}
 
+        [ResponseType(typeof(Grupo))]
+        [Route("")]
         public HttpResponseMessage GetGrupos()
         {
             UnityOfWork unitOfWork = new UnityOfWork(new minhaGeladeiraEntities());
@@ -46,15 +49,24 @@ namespace minhaGeladeira.Controllers
 
         // GET: api/Grupo/5
         [ResponseType(typeof(Grupo))]
-        public IHttpActionResult GetGrupo(int id)
+        [Route("{id:int}")]
+        public HttpResponseMessage GetGrupo(int id)
         {
-            Grupo grupo = db.Grupos.Find(id);
-            if (grupo == null)
+            UnityOfWork unityOfWork = new UnityOfWork(new minhaGeladeiraEntities());
+            
+            if (unityOfWork.Grupos.GetUm(id) == null)
             {
-                return NotFound();
+               RespostaSimples resp = new RespostaSimples
+                {
+                    Mensagem = "Não foi possivel achar o Grupo"
+                };
+                return Request.CreateResponse(HttpStatusCode.NotFound, resp);
             }
-
-            return Ok(grupo);
+            else
+            {
+                var grupo = unityOfWork.Grupos.GetUm(id);
+                return Request.CreateResponse(HttpStatusCode.OK, grupo);
+            }
         }
 
         // PUT: api/Grupo/5
@@ -94,17 +106,36 @@ namespace minhaGeladeira.Controllers
 
         // POST: api/Grupo
         [ResponseType(typeof(Grupo))]
-        public IHttpActionResult PostGrupo(Grupo grupo)
+        [Route("")]
+        public HttpResponseMessage PostGrupo([FromBody] GrupoSimples grupo)
         {
-            if (!ModelState.IsValid)
+            UnityOfWork unityOfWork = new UnityOfWork(new minhaGeladeiraEntities());
+            Grupo estegrupo = new Grupo
             {
-                return BadRequest(ModelState);
+                Nome = grupo.Nome_Grupo,
+            };
+            if(unityOfWork.Grupos.ExisteGrupo(estegrupo.Nome) == true)
+            {
+                RespostaSimples resp = new RespostaSimples
+                {
+                    Mensagem = "Já existe um Grupo com este nome"
+                };
+
+                return Request.CreateResponse(HttpStatusCode.OK, resp);
             }
+            else
+            {
+                unityOfWork.Grupos.Add(estegrupo);
+                unityOfWork.Complete();
 
-            db.Grupos.Add(grupo);
-            db.SaveChanges();
+                RespostaSimples resp = new RespostaSimples
+                {
+                    Mensagem = "Grupo Cadastrado"
+                };
 
-            return CreatedAtRoute("DefaultApi", new { id = grupo.Id }, grupo);
+                return Request.CreateResponse(HttpStatusCode.OK, resp);
+            }
+           
         }
 
         // DELETE: api/Grupo/5

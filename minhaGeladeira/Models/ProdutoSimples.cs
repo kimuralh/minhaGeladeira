@@ -5,13 +5,10 @@ using System.Web;
 
 namespace minhaGeladeira.Models
 {
-    public class UsuarioNZoado
+    public class ProdutoSimples
     {
-        
         public int Id { get; set; }
         public string Nome { get; set; }
-        public string RG { get; set; }
-        public string Telefone { get; set; }
-        //public Membro_Grupo Grupo { get; set; }
+        public Nullable<decimal> Preco { get; set; }
     }
 }

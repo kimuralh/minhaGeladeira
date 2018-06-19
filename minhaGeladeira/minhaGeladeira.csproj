@@ -186,7 +186,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\GruposController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ProdutoController.cs" />
+    <Compile Include="Controllers\ProdutosController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -221,7 +221,9 @@
     </Compile>
     <Compile Include="Models\GrupoSimples.cs" />
     <Compile Include="Models\MembroGrupoSimples.cs" />
-    <Compile Include="Models\UsuarioNZoado.cs" />
+    <Compile Include="Models\ProdutoSimples.cs" />
+    <Compile Include="Models\RespostaSimples.cs" />
+    <Compile Include="Models\UsuarioSimples.cs" />
     <Compile Include="Produto.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

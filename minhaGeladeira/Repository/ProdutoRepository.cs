@@ -1,4 +1,5 @@
-﻿using System;
+﻿using minhaGeladeira.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,9 +14,16 @@ namespace minhaGeladeira.Repository
 
         }
 
-        public IEnumerable<Produto> GetAllProdutos()
+        public IEnumerable<ProdutoSimples> GetTudo()
         {
-            return minhaGeladeiraEntities.Produtos.ToList();
+            var meio = minhaGeladeiraEntities.Produtos.ToList();
+            var result = meio.Select(e => new ProdutoSimples
+            {
+                Id = e.Id,
+                Nome = e.Nome,
+                Preco = e.Preco,
+            });
+            return result.ToList();
             
         }
         public minhaGeladeiraEntities minhaGeladeiraEntities

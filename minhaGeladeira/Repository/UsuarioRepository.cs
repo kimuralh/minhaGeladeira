@@ -21,12 +21,12 @@ namespace minhaGeladeira.Repository
         }
 
         // ideal seria se conseguisse trazer a lista de grupos da membrogrupo, mas não foi possivel
-        public IEnumerable<UsuarioNZoado> GetTudo()
+        public IEnumerable<UsuarioSimples> GetTudo()
         {
 
             var meio = minhaGeladeiraEntities.Usuarios;
             //var meio2 = minhaGeladeiraEntities.MembrosGrupo;
-            var result = meio.Select(e => new UsuarioNZoado
+            var result = meio.Select(e => new UsuarioSimples
             {
                 Id = e.Id,
                 Nome = e.Nome,
@@ -38,26 +38,36 @@ namespace minhaGeladeira.Repository
 
         }
 
-        public UsuarioNZoado GetUm(int id)
+        public UsuarioSimples GetUm(int id)
         {
             Usuario usuario = minhaGeladeiraEntities.Usuarios.Where(x => x.Id == id).FirstOrDefault();
-            UsuarioNZoado user = new UsuarioNZoado
+            if(usuario == null)
             {
-                Id = usuario.Id,
-                Nome = usuario.Nome,
-                RG = usuario.RG,
-                Telefone = usuario.Telefone,
-            };
-            return user;
+                
+                return null;
+            }
+            else
+            {
+                UsuarioSimples user = new UsuarioSimples
+                {
+                    Id = usuario.Id,
+                    Nome = usuario.Nome,
+                    RG = usuario.RG,
+                    Telefone = usuario.Telefone,
+                };
+                return user;
+            }
+            
         }
 
-        public IEnumerable<UsuarioNZoado> GetUsuariosId(int id)
+        // pega os usuarios presentes no grupo com este id
+        public IEnumerable<UsuarioSimples> GetUsuariosId(int id)
         {
             var usuarios = (from mg in minhaGeladeiraEntities.MembrosGrupo
                             join u in minhaGeladeiraEntities.Usuarios
                             on mg.Id_Usuario equals u.Id
                             where mg.Id_Grupo == id
-                            select new UsuarioNZoado
+                            select new UsuarioSimples
                             {
                                 Id = mg.Id_Usuario,
                                 Nome = u.Nome,

@@ -13,10 +13,12 @@ using minhaGeladeira.Repository;
 
 namespace minhaGeladeira.Controllers
 {
-    public class ProdutoController : ApiController
+    [RoutePrefix("api/produtos")]
+    public class ProdutosController : ApiController
     {
+        
         private minhaGeladeiraEntities db = new minhaGeladeiraEntities();
-        UnityOfWork unitOfWork = new UnityOfWork(new minhaGeladeiraEntities());
+        
 
         //private readonly Produto[] Produtos = new Produto[]
         //{
@@ -26,21 +28,20 @@ namespace minhaGeladeira.Controllers
 
 
         // GET: api/Produto
-        public HttpResponseMessage GetProdutoes()
+        [Route("")]
+        public HttpResponseMessage GetProdutos()
         {
-            using (var unitOfWork = new UnityOfWork(new minhaGeladeiraEntities()))
-            {
-                var x = unitOfWork.Produtos.GetAll();
+            UnityOfWork unityOfWork = new UnityOfWork(new minhaGeladeiraEntities());
+            var produtos = unityOfWork.Produtos.GetTudo();
+            return Request.CreateResponse(HttpStatusCode.OK, produtos);
 
-
-                return Request.CreateResponse(HttpStatusCode.OK,x);
-            }
             
 
         }
 
         // GET: api/Produto/5
         [ResponseType(typeof(Produto))]
+        [Route("{id:int}")]
         public IHttpActionResult GetProduto(int id)
         {
             Produto produto = db.Produtos.Find(id);

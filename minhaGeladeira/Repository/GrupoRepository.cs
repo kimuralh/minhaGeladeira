@@ -44,7 +44,38 @@ namespace minhaGeladeira.Repository
 
         }
 
- 
+        public GrupoSimples GetUm(int id)
+        {
+            var meio = minhaGeladeiraEntities.Grupos.Where(x => x.Id == id).FirstOrDefault();
+            if(meio != null)
+            {
+                GrupoSimples result = new GrupoSimples
+                {
+                    Id_Grupo = meio.Id,
+                    Nome_Grupo = meio.Nome,
+                };
+                return result;
+
+            }
+            else
+            {
+                return null;
+            }
+            
+
+        }
+
+        public bool ExisteGrupo(string nome)
+        {
+            if (minhaGeladeiraEntities.Grupos.Where(x => x.Nome.Trim() == nome.Trim()).Count() == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
 
         public minhaGeladeiraEntities minhaGeladeiraEntities
         {

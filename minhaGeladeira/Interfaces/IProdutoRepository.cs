@@ -1,4 +1,5 @@
-﻿using System;
+﻿using minhaGeladeira.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace minhaGeladeira.Repository
 {
     public interface IProdutoRepository : IRepository<Produto>
     {
-        IEnumerable<Produto> GetAllProdutos();
+        IEnumerable<ProdutoSimples> GetTudo();
     }
 }
