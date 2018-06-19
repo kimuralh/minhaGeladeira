@@ -77,6 +77,17 @@ namespace minhaGeladeira.Repository
             }
         }
 
+        public void AlteraGrupo(GrupoSimples grupo)
+        {
+            Grupo grupog = new Grupo
+            {
+                Id = grupo.Id_Grupo,
+                Nome = grupo.Nome_Grupo
+            };
+            var atual = minhaGeladeiraEntities.Grupos.Where(x => x.Id == grupo.Id_Grupo).FirstOrDefault();
+            minhaGeladeiraEntities.Entry(atual).CurrentValues.SetValues(grupog);
+        }
+
         public minhaGeladeiraEntities minhaGeladeiraEntities
         {
             get { return Context as minhaGeladeiraEntities; }

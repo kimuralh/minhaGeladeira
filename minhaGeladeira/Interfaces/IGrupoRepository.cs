@@ -13,6 +13,7 @@ namespace minhaGeladeira.Repository
         IEnumerable<GrupoSimples> GetGruposId(int id);
         GrupoSimples GetUm(int id);
         bool ExisteGrupo(string nome);
+        void AlteraGrupo(GrupoSimples grupo);
        
     }
 }

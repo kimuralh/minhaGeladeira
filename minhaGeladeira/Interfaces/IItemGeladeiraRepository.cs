@@ -8,5 +8,6 @@ namespace minhaGeladeira.Repository
 {
     public interface IItemGeladeiraRepository : IRepository<Item_Geladeira>
     {
+        
     }
 }

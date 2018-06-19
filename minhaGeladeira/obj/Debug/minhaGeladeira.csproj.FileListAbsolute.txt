@@ -77,3 +77,5 @@ C:\Users\lucas.kimura\source\repos\minhaGeladeira\minhaGeladeira\obj\Debug\minha
 C:\Users\lucas.kimura\source\repos\minhaGeladeira\minhaGeladeira\obj\Debug\minhaGeladeira.csproj.CopyComplete
 C:\Users\lucas.kimura\source\repos\minhaGeladeira\minhaGeladeira\obj\Debug\minhaGeladeira.dll
 C:\Users\lucas.kimura\source\repos\minhaGeladeira\minhaGeladeira\obj\Debug\minhaGeladeira.pdb
+C:\Users\lucas.kimura\source\repos\minhaGeladeira\minhaGeladeira\bin\Swashbuckle.Core.dll
+C:\Users\lucas.kimura\source\repos\minhaGeladeira\minhaGeladeira\bin\WebActivatorEx.dll

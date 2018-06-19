@@ -7,6 +7,7 @@ namespace minhaGeladeira.Models
 {
     public class RespostaSimples
     {
-        public string Mensagem;
+        public string Mensagem { get; set; }
+        
     }
 }

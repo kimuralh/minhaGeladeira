@@ -56,10 +56,8 @@ namespace minhaGeladeira.Controllers
             
             if (unityOfWork.Grupos.GetUm(id) == null)
             {
-               RespostaSimples resp = new RespostaSimples
-                {
-                    Mensagem = "Não foi possivel achar o Grupo"
-                };
+                RespostaSimples resp = new RespostaSimples();
+                resp.Mensagem = "Não foi possivel achar o grupo";
                 return Request.CreateResponse(HttpStatusCode.NotFound, resp);
             }
             else
@@ -71,37 +69,48 @@ namespace minhaGeladeira.Controllers
 
         // PUT: api/Grupo/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutGrupo(int id, Grupo grupo)
+        [Route("")]
+        public HttpResponseMessage PutGrupo([FromBody] GrupoSimples grupo)
         {
-            if (!ModelState.IsValid)
+            UnityOfWork unityOfWork = new UnityOfWork(new minhaGeladeiraEntities());
+            if (GrupoExists(grupo.Id_Grupo)  == true)
             {
-                return BadRequest(ModelState);
-            }
+                unityOfWork.Grupos.AlteraGrupo(grupo);
 
-            if (id != grupo.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(grupo).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GrupoExists(id))
+                try
                 {
-                    return NotFound();
+                    unityOfWork.Complete();
+                    RespostaSimples resp = new RespostaSimples();
+                    resp.Mensagem = "Grupo atualizado com sucesso";
+                    return Request.CreateResponse(HttpStatusCode.OK, resp);
                 }
-                else
+                catch (DbUpdateConcurrencyException)
                 {
-                    throw;
+                    if (!GrupoExists(grupo.Id_Grupo))
+                    {
+                        RespostaSimples resp = new RespostaSimples();
+                        resp.Mensagem = "Não foi possivel achar o grupo";
+                        return Request.CreateResponse(HttpStatusCode.NotFound, resp);
+                    }
+                    else
+                    {
+                        RespostaSimples resp = new RespostaSimples();
+                        resp.Mensagem = "Não foi possivel alterar o grupo";
+                        return Request.CreateResponse(HttpStatusCode.NotFound, resp);
+
+                    }
+                    
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            else
+            {
+                RespostaSimples resp = new RespostaSimples();
+                resp.Mensagem = "Id Grupo invalido";
+                return Request.CreateResponse(HttpStatusCode.NotFound, resp);
+            }
+                   
+
         }
 
         // POST: api/Grupo
@@ -116,22 +125,18 @@ namespace minhaGeladeira.Controllers
             };
             if(unityOfWork.Grupos.ExisteGrupo(estegrupo.Nome) == true)
             {
-                RespostaSimples resp = new RespostaSimples
-                {
-                    Mensagem = "Já existe um Grupo com este nome"
-                };
+                RespostaSimples resp = new RespostaSimples();
+                resp.Mensagem = "Já existe um Grupo com esse nome";
 
-                return Request.CreateResponse(HttpStatusCode.OK, resp);
+                return Request.CreateResponse(HttpStatusCode.Conflict, resp);
             }
             else
             {
                 unityOfWork.Grupos.Add(estegrupo);
                 unityOfWork.Complete();
 
-                RespostaSimples resp = new RespostaSimples
-                {
-                    Mensagem = "Grupo Cadastrado"
-                };
+                RespostaSimples resp = new RespostaSimples();
+                resp.Mensagem = "Grupo Cadastrado";
 
                 return Request.CreateResponse(HttpStatusCode.OK, resp);
             }
@@ -140,18 +145,32 @@ namespace minhaGeladeira.Controllers
 
         // DELETE: api/Grupo/5
         [ResponseType(typeof(Grupo))]
-        public IHttpActionResult DeleteGrupo(int id)
+        [Route("{id:int}")]
+        public HttpResponseMessage DeleteGrupo(int id)
         {
-            Grupo grupo = db.Grupos.Find(id);
+            UnityOfWork unityOfWork = new UnityOfWork(new minhaGeladeiraEntities());
+            
+
+            
+            Grupo grupo = unityOfWork.Grupos.Get(id);
             if (grupo == null)
             {
-                return NotFound();
+                RespostaSimples resp = new RespostaSimples();
+                resp.Mensagem = "Grupo Não Encontrado";
+                
+                return Request.CreateResponse(HttpStatusCode.NotFound, resp);
             }
-
-            db.Grupos.Remove(grupo);
-            db.SaveChanges();
-
-            return Ok(grupo);
+            else
+            {
+                unityOfWork.Grupos.Remove(unityOfWork.Grupos.Get(id));
+                unityOfWork.Complete();
+                RespostaSimples resp = new RespostaSimples
+                {
+                    Mensagem = "Grupo Removido"
+                };
+                return Request.CreateResponse(HttpStatusCode.OK, resp);
+            }
+            
         }
 
         protected override void Dispose(bool disposing)
@@ -165,7 +184,16 @@ namespace minhaGeladeira.Controllers
 
         private bool GrupoExists(int id)
         {
-            return db.Grupos.Count(e => e.Id == id) > 0;
+            UnityOfWork unityOfWork = new UnityOfWork(new minhaGeladeiraEntities());
+            if(unityOfWork.Grupos.GetUm(id) != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
     }
 }
